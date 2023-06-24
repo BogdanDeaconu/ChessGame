@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './ChessBoard.css';
-import Tile from '../Tile/Tile';
+import Tile from '../Piece/Piece';
 
 const rows = ["1", "2", "3", "4", "5", "6", "7", "8"];
 const cols = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
+// Clasa Type pentru tipul pieselor
 const Type = {
   Pawn: 'Pawn',
   Rook: 'Rook',
@@ -14,10 +15,12 @@ const Type = {
   King: 'King'
 };
 
+// Clasa Color pentru culoarea pieselor
 const Color = {
   White: 'White',
   Black: 'Black'
 };
+
 
 class Piece {
   constructor(id, color, type, imgURL, column, row) {
@@ -32,7 +35,7 @@ class Piece {
 
 let Pieces = [];
 
-// Generare piese
+// Generare piese, o parte mai urata din cod :))
 for (let i = 0; i < 8; i++) {
   Pieces.push(new Piece(Pieces.length + 1, Color.White, Type.Pawn, "assets/images/Chess_plt45.svg.png", i, 1));
   Pieces.push(new Piece(Pieces.length + 1, Color.Black, Type.Pawn, "assets/images/Chess_pdt45.svg.png", i, 6));
@@ -67,11 +70,12 @@ Pieces.push(new Piece(Pieces.length+1,Color.Black, Type.King, "assets/images/Che
 const ChessBoard = () => {
   const [board, setBoard] = useState([]);
 
-  // Construirea tablei de șah și așezarea pieselor
+  
   useEffect(() => {
     setBoard(buildBoard());
   }, []);
 
+  // Construirea tablei de șah și așezarea pieselor
   const buildBoard = () => {
     const updatedBoard = [];
     
@@ -104,7 +108,7 @@ const ChessBoard = () => {
     return updatedBoard;
   };
 
-
+  // Handlers pentru drag and drop
   const handleDragStart = (event, piece) => {
     event.dataTransfer.setData('text/plain', JSON.stringify(piece));
   };
@@ -129,6 +133,7 @@ const ChessBoard = () => {
   setBoard(buildBoard());
   };
 
+  
   return (
     <div id="chessboard">
       {board}
